@@ -4,10 +4,10 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-require('dotenv').config(); 
+require('dotenv').config();
 
 const middlewares = require('./middlewares');
-const logs = require('./api/logs'); 
+const logs = require('./api/logs');
 
 const app = express();
 
@@ -15,6 +15,7 @@ mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 app.use(morgan('common'));
 app.use(helmet());
 app.use(
@@ -22,6 +23,8 @@ app.use(
     origin: process.env.CORS_ORIGIN,
   }),
 );
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.json({
